@@ -1,4 +1,4 @@
-﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -28,16 +28,6 @@ a, .btn-link {
 
 .validation-message {
     color: red;
-}
-
-.red-background {
-  background: red;
-  color: white;
-}
-
-.yellow-background {
-  background: yellow;
-  color: black;
 }
 
 #blazor-error-ui {
