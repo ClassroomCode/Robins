@@ -2,12 +2,15 @@
 using EComm.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace EComm.Server.Controllers
+namespace EComm.Server.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -21,9 +24,18 @@ namespace EComm.Server.Controllers
         }
 
         [HttpGet("")]
-        public IEnumerable<Product> GetAllProducts()
+        public async Task<IActionResult> GetAllProducts()
         {
-            return _dataContext.Products.ToArray();
+            var products = _dataContext.Products;
+
+            var sp = products.Where(p => p.ProductName.StartsWith("A"));
+
+            var sp2 = sp.Where(p => p.UnitPrice > 5);
+
+
+            var retVal = await sp2.ToArrayAsync();
+            
+            return Ok(retVal);
         }
     }
 }
