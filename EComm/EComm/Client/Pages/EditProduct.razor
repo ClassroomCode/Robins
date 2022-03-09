@@ -7,21 +7,29 @@
   <p><em>Loading...</em></p>
 }
 else {
-<fieldset>
-  <div class="row mb-2">
-    <label class="col-2" for="ProductName">Name:</label>
-    <input class="col-6" id="ProductName" @bind="CurrentProduct.ProductName" />
-  </div>
-  <div class="row mb-2">
-    <label class="col-2" for="UnitPrice">Unit Price:</label>
-    <input class="col-6" id="UnitPrice" @bind="CurrentProduct.UnitPrice" />
-  </div>
-  <div class="row mb-2">
-    <label class="col-2" for="Package">Package:</label>
-    <input class="col-6" id="Package" @bind="CurrentProduct.Package" />
-  </div>
-  <button class="btn btn-primary" @onclick="SaveProduct">Save</button>
-</fieldset>
+<EditForm Model="@CurrentProduct" OnValidSubmit="SaveProduct">
+  <DataAnnotationsValidator />
+  <fieldset>
+    <div class="row mb-2">
+      <label class="col-2" for="ProductName">Name:</label>
+      <InputText class="col-6" id="ProductName" @bind-Value="CurrentProduct.ProductName" />
+    </div>
+    <div class="row mb-2">
+      <div class="col-5 offset-2">
+        <ValidationMessage For="@(() => CurrentProduct.ProductName)" />
+      </div>
+    </div>
+    <div class="row mb-2">
+      <label class="col-2" for="UnitPrice">Unit Price:</label>
+      <input class="col-6" id="UnitPrice" @bind="CurrentProduct.UnitPrice" />
+    </div>
+    <div class="row mb-2">
+      <label class="col-2" for="Package">Package:</label>
+      <input class="col-6" id="Package" @bind="CurrentProduct.Package" />
+    </div>
+    <button class="btn btn-primary" type="submit">Save</button>
+  </fieldset>
+ </EditForm>
 }
 
 @code {
@@ -37,7 +45,7 @@ else {
 
     public void SaveProduct()
     {
-      //
+      int i = 5;
     }
 }
 
