@@ -28,8 +28,8 @@
           _timer = new System.Threading.Timer(
             callback: _ => InvokeAsync(() => Dismiss()),
             state: null,
-            dueTime: 5000,
-            period: System.Threading.Timeout.Infinite);
+            dueTime: TimeSpan.FromSeconds(5),
+            period: System.Threading.Timeout.InfiniteTimeSpan);
         }
       }
     }
