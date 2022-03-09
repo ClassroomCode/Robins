@@ -21,7 +21,7 @@ else {
         </thead>
         <tbody>
             @foreach (var product in products) {
-                <tr @onclick="@(() => EditProduct(product))">
+                <tr class="hover-row" @onclick="@(() => EditProduct(product))">
                     <td>@product.ProductName</td>
                     <td>@product.FormattedPrice</td>
                     <td>@product.Package</td>
@@ -33,23 +33,20 @@ else {
 }
 
 @code {
-    private Product[]? products;
+  private Product[]? products;
 
-    protected override async Task OnInitializedAsync()
-    {
-      products = await Http.GetFromJsonAsync<Product[]>("api/product?includeSuppliers=true");
-    }
+  protected override async Task OnInitializedAsync()
+  {
+    products = await Http.GetFromJsonAsync<Product[]>("api/product?includeSuppliers=true");
+  }
 
-    private void SortByPrice()
-    {
-      if (products != null) products = products.OrderByDescending(p => p.UnitPrice).ToArray();
-    }
+  private void SortByPrice()
+  {
+    if (products != null) products = products.OrderByDescending(p => p.UnitPrice).ToArray();
+  }
 
-    private void EditProduct(Product p)
-    {
-      Nav.NavigateTo($"edit/{p.Id}");
-    }
+  private void EditProduct(Product p)
+  {
+    Nav.NavigateTo($"edit/{p.Id}");
+  }
 }
-
-
-
