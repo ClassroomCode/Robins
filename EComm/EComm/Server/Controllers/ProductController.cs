@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace EComm.Server.Controller
@@ -16,20 +18,31 @@ namespace EComm.Server.Controller
     public class ProductController : ControllerBase
     {
         private readonly ECommDataContext _dataContext;
+        private readonly ILogger _logger;
 
-        public ProductController(ECommDataContext dataContext)
+        public ProductController(ECommDataContext dataContext, ILogger<ProductController> logger)
         {
             _dataContext = dataContext;
+            _logger = logger;
         }
 
         [HttpGet("")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAllProducts()
+        public async Task<IActionResult> GetAllProducts(bool includeSuppliers = false)
         {
-            var products = await _dataContext.Products.ToArrayAsync();
+            IEnumerable<Product> products = new List<Product>();
+
+            if (includeSuppliers) {
+                products = await _dataContext.Products
+                    .Include(p => p.Supplier).ToArrayAsync();
+            }
+            else {
+                products = await _dataContext.Products.ToArrayAsync();
+            }
             return Ok(products);
         }
 
+        // api/product/6
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -128,3 +141,4 @@ namespace EComm.Server.Controller
         }
     }
 }
+

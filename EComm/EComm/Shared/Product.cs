@@ -16,5 +16,7 @@ namespace EComm.Shared
         public bool IsDiscontinued { get; set; }
 
         public Supplier? Supplier { get; set; }
+
+        public string FormattedPrice => string.Format("{0:C}", UnitPrice);
     }
 }
