@@ -1,14 +1,28 @@
 ﻿@page "/edit/{id}"
+@inject HttpClient Http
 
 <h3>Edit Product</h3>
 
+@if (CurrentProduct == null) {
+  <p><em>Loading...</em></p>
+}
+else {
 <fieldset>
   <div class="row mb-2">
     <label class="col-2" for="ProductName">Name:</label>
     <input class="col-6" id="ProductName" @bind="CurrentProduct.ProductName" />
   </div>
+  <div class="row mb-2">
+    <label class="col-2" for="UnitPrice">Unit Price:</label>
+    <input class="col-6" id="UnitPrice" @bind="CurrentProduct.UnitPrice" />
+  </div>
+  <div class="row mb-2">
+    <label class="col-2" for="Package">Package:</label>
+    <input class="col-6" id="Package" @bind="CurrentProduct.Package" />
+  </div>
   <button class="btn btn-primary" @onclick="SaveProduct">Save</button>
 </fieldset>
+}
 
 @code {
     [Parameter]
@@ -16,14 +30,16 @@
 
     private Product? CurrentProduct { get; set; }
 
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-          CurrentProduct = new Product() { Id = 5, ProductName = "TestProduct" };
-        }
+    protected override async Task OnInitializedAsync()
+    {
+      CurrentProduct = await Http.GetFromJsonAsync<Product>($"api/product/{Id}");
+    }
 
-        public void SaveProduct()
-        {
-          //
-        }
+    public void SaveProduct()
+    {
+      //
+    }
 }
+
+
+
