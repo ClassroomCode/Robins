@@ -13,6 +13,8 @@ namespace EComm.Shared
         [Required(ErrorMessage ="Product must have a name")]
         public string ProductName { get; set; } = string.Empty;
         public int SupplierId { get; set; }
+
+        [Required, Range(1.0, 500.0)]
         public Decimal? UnitPrice { get; set; }
         public string? Package { get; set; }
         public bool IsDiscontinued { get; set; }
