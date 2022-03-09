@@ -1,0 +1,29 @@
+﻿@page "/edit/{id}"
+
+<h3>Edit Product</h3>
+
+<fieldset>
+  <div class="row mb-2">
+    <label class="col-2" for="ProductName">Name:</label>
+    <input class="col-6" id="ProductName" @bind="CurrentProduct.ProductName" />
+  </div>
+  <button class="btn btn-primary" @onclick="SaveProduct">Save</button>
+</fieldset>
+
+@code {
+    [Parameter]
+    public string? Id { get; set; }
+
+    private Product? CurrentProduct { get; set; }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+          CurrentProduct = new Product() { Id = 5, ProductName = "TestProduct" };
+        }
+
+        public void SaveProduct()
+        {
+          //
+        }
+}

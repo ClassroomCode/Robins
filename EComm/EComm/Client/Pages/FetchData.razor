@@ -9,15 +9,12 @@
 @if (products == null) {
     <p><em>Loading...</em></p>
 }
-else if (message != null) {
-  <p>@message</p>
-}
 else {
     <table class="table">
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Unit Price</th>
+                <th><a @onclick="SortByPrice">Unit Price</a></th>
                 <th>Package</th>
                 <th>Supplier</th>
             </tr>
@@ -36,11 +33,15 @@ else {
 }
 
 @code {
-  private Product[]? products;
-  private string? message = null;
+    private Product[]? products;
 
-  protected override async Task OnInitializedAsync()
-  {
+    protected override async Task OnInitializedAsync()
+    {
       products = await Http.GetFromJsonAsync<Product[]>("api/product?includeSuppliers=true");
-  }
+    }
+
+    private void SortByPrice()
+    {
+      if (products != null) products = products.OrderByDescending(p => p.UnitPrice).ToArray();
+    }
 }
