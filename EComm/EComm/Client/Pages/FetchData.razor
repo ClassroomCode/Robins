@@ -1,5 +1,6 @@
 ﻿@page "/fetchdata"
 @inject HttpClient Http
+@inject NavigationManager Nav
 
 <h1>Products</h1>
 
@@ -20,7 +21,7 @@ else {
         </thead>
         <tbody>
             @foreach (var product in products) {
-                <tr>
+                <tr @onclick="@(() => EditProduct(product))">
                     <td>@product.ProductName</td>
                     <td>@product.FormattedPrice</td>
                     <td>@product.Package</td>
@@ -43,4 +44,14 @@ else {
     {
       if (products != null) products = products.OrderByDescending(p => p.UnitPrice).ToArray();
     }
+
+    private void EditProduct(Product p)
+    {
+      Nav.NavigateTo($"edit/{p.Id}");
+    }
 }
+
+
+Selection Hover in the list of products
+
+Hand down when finished
