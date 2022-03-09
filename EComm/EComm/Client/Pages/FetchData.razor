@@ -6,12 +6,13 @@
 
 <p>This component demonstrates fetching products from the server.</p>
 
-@if (products == null)
-{
+@if (products == null) {
     <p><em>Loading...</em></p>
 }
-else
-{
+else if (message != null) {
+  <p>@message</p>
+}
+else {
     <table class="table">
         <thead>
             <tr>
@@ -22,8 +23,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var product in products)
-            {
+            @foreach (var product in products) {
                 <tr>
                     <td>@product.ProductName</td>
                     <td>@product.FormattedPrice</td>
@@ -36,11 +36,11 @@ else
 }
 
 @code {
-    private Product[]? products;
+  private Product[]? products;
+  private string? message = null;
 
-    protected override async Task OnInitializedAsync()
-    {
-        products = await Http.GetFromJsonAsync<Product[]>("api/product?includeSuppliers=true");
-    }
-
+  protected override async Task OnInitializedAsync()
+  {
+      products = await Http.GetFromJsonAsync<Product[]>("api/product?includeSuppliers=true");
+  }
 }
