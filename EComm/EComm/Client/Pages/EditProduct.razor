@@ -2,6 +2,14 @@
 @inject HttpClient Http
 
 <h3>Edit Product</h3>
+<AuthorizeView>
+    <Authorized>
+        <p>You are authorized as @context.User.Identity?.Name</p>
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not authorized</p>
+    </NotAuthorized>
+</AuthorizeView>
 
 @if (CurrentProduct == null) {
   <p><em>Loading...</em></p>

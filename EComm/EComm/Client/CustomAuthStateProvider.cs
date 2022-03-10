@@ -11,14 +11,14 @@ namespace EComm.Client
     {
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            var identity = new ClaimsIdentity();
-            /*
+            //var identity = new ClaimsIdentity();
+            
             var identity = new ClaimsIdentity(new[]
             {
                 new Claim(ClaimTypes.Name, "Bill Gates"),
                 new Claim(ClaimTypes.Role, "Admin")
             }, "My Custom Auth");
-            */
+            
 
             var principal = new ClaimsPrincipal(identity);
 
