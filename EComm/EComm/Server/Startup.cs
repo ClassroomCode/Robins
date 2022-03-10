@@ -60,3 +60,17 @@ namespace EComm.Server
         }
     }
 }
+
+
+//  Lab Exercise
+
+//  1. Shopping cart functionality
+//  2. "Add to cart" button on product page (or in product list)
+//  3. Show cart status in header (how many currently in cart)
+//  4. View cart button in menu
+//  5. Cart page (show what's in cart)
+//  6. Cart should persist
+
+//  Resume at 0900
+
+// CSRF
