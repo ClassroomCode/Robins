@@ -12,15 +12,3 @@
     <InputText id="password" type="password" @bind-Value="user.Password" />
     <button type="submit" class="btn btn-primary">Login</button>
 </EditForm>
-
-@code {
-    LoginDto user = new LoginDto();
-
-    async Task HandleLogin()
-    {
-        var result = await Http.PostAsJsonAsync("api/auth/login", user);
-        var token = await result.Content.ReadAsStringAsync();
-        await LocalStorage.SetItemAsync("token", token);
-        await AuthStateProvider.GetAuthenticationStateAsync();
-    }
-}
