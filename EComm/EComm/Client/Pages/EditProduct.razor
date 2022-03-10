@@ -71,8 +71,8 @@ else {
 
     protected override async Task OnInitializedAsync()
     {
-      CurrentProduct = await Http.GetFromJsonAsync<Product>($"api/product/{Id}");
-      Suppliers = await Http.GetFromJsonAsync<Supplier[]>("api/supplier");
+        CurrentProduct = await Http.GetFromJsonAsync<Product>($"api/product/{Id}");
+        Suppliers = await Http.GetFromJsonAsync<Supplier[]>("api/supplier");
     }
 
     public async Task SaveProduct()
