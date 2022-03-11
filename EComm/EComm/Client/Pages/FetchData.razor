@@ -1,6 +1,7 @@
 ﻿@page "/fetchdata"
 @inject HttpClient Http
 @inject NavigationManager Nav
+@inject IShoppingCartService ShoppingCart
 @attribute [Authorize]
 
 <h1>Products</h1>
@@ -18,6 +19,7 @@ else {
                 <th><a @onclick="SortByPrice">Unit Price</a></th>
                 <th>Package</th>
                 <th>Supplier</th>
+                <th>&nbsp;</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +29,7 @@ else {
                     <td>@product.FormattedPrice</td>
                     <td>@product.Package</td>
                     <td>@(product.Supplier?.CompanyName ?? "Unknown")</td>
+                    <td><button class="btn btn-primary" @onclick="@(() => AddToCart(product))">Add</button></td>
                 </tr>
             }
         </tbody>
@@ -39,6 +42,11 @@ else {
     protected override async Task OnInitializedAsync()
     {
         products = await Http.GetFromJsonAsync<Product[]>("api/product?includeSuppliers=true");
+    }
+
+    private void AddToCart(Product product)
+    {
+        ShoppingCart.AddToCart(product, 1);
     }
 
     private void SortByPrice()

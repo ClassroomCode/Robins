@@ -1,0 +1,14 @@
+﻿@inject NavigationManager NavigationManager
+@inject IShoppingCartService CartService
+
+<button @onclick="GoToCart" class="btn btn-secondary">Cart (@CartCount)</button>
+
+@code {
+
+    int CartCount => CartService.Cart.LineItems.Count();
+
+    void GoToCart()
+    {
+        NavigationManager.NavigateTo("viewcart");
+    }
+}

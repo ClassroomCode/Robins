@@ -79,7 +79,7 @@ namespace EComm.Server
 }
 
 
-//  Lab Exercise
+//  Lab Exercise (continue from yesterday)
 
 //  1. Shopping cart functionality
 //  2. "Add to cart" button on product page (or in product list)
@@ -88,6 +88,7 @@ namespace EComm.Server
 //  5. Cart page (show what's in cart)
 //  6. Cart should persist
 
-//  Resume at 0900
+// Use the "raise hand" feature to let me know if you would like some 
+// more time or if you feel you are ready to move on
 
-// CSRF
+// Will we resume at 0815

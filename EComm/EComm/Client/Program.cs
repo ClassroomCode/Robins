@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
+using EComm.Client.Services;
 
 namespace EComm.Client
 {
@@ -23,6 +24,8 @@ namespace EComm.Client
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
             builder.Services.AddAuthorizationCore();
+
+            builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 
             await builder.Build().RunAsync();
         }
