@@ -78,17 +78,3 @@ namespace EComm.Server
     }
 }
 
-
-//  Lab Exercise (continue from yesterday)
-
-//  1. Shopping cart functionality
-//  2. "Add to cart" button on product page (or in product list)
-//  3. Show cart status in header (how many currently in cart)
-//  4. View cart button in menu
-//  5. Cart page (show what's in cart)
-//  6. Cart should persist
-
-// Use the "raise hand" feature to let me know if you would like some 
-// more time or if you feel you are ready to move on
-
-// Will we resume at 0815
