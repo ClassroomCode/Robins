@@ -1,5 +1,6 @@
 ﻿@page "/edit/{id}"
 @inject HttpClient Http
+@attribute [Authorize]
 
 <h3>Edit Product</h3>
 <AuthorizeView Roles="Admin">

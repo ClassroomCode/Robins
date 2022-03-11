@@ -1,5 +1,6 @@
 ﻿using EComm.Server.DataAccess;
 using EComm.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -15,6 +16,7 @@ namespace EComm.Server.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SupplierController : ControllerBase
     {
         private readonly ECommDataContext _dataContext;

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,19 +25,20 @@ namespace EComm.Server.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginDto request)
+        public IActionResult Login(LoginDto request)
         {
-            if (request.Username == "test" && request.Password == "password") {
-                return Ok($"{request.Username}|admin");
-            }
-            else {
-                return Unauthorized();
-            }
+            var isAuth = (request.Username == "test" && request.Password == "password");
 
-            /*
-            var key = Encoding.UTF8.GetBytes(_configuration["key"]);
+            if (!isAuth) return Unauthorized();
 
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var claims = new[] {
+                new Claim(ClaimTypes.NameIdentifier, "someuser"),
+                new Claim(ClaimTypes.Name, "Bill Gates"),
+                new Claim(ClaimTypes.Role, "Admin")
+            };
 
             var token = new JwtSecurityToken(
                 claims: claims,
@@ -44,7 +46,6 @@ namespace EComm.Server.Controllers
                 signingCredentials: creds);
 
             return Ok(new JwtSecurityTokenHandler().WriteToken(token));
-            */
         }
     }
 }

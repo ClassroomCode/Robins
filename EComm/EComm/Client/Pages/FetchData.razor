@@ -1,6 +1,7 @@
 ﻿@page "/fetchdata"
 @inject HttpClient Http
 @inject NavigationManager Nav
+@attribute [Authorize]
 
 <h1>Products</h1>
 
@@ -33,20 +34,20 @@ else {
 }
 
 @code {
-  private Product[]? products;
+    private Product[]? products;
 
-  protected override async Task OnInitializedAsync()
-  {
-    products = await Http.GetFromJsonAsync<Product[]>("api/product?includeSuppliers=true");
-  }
+    protected override async Task OnInitializedAsync()
+    {
+        products = await Http.GetFromJsonAsync<Product[]>("api/product?includeSuppliers=true");
+    }
 
-  private void SortByPrice()
-  {
-    if (products != null) products = products.OrderByDescending(p => p.UnitPrice).ToArray();
-  }
+    private void SortByPrice()
+    {
+        if (products != null) products = products.OrderByDescending(p => p.UnitPrice).ToArray();
+    }
 
-  private void EditProduct(Product p)
-  {
-    Nav.NavigateTo($"edit/{p.Id}");
-  }
+    private void EditProduct(Product p)
+    {
+        Nav.NavigateTo($"edit/{p.Id}");
+    }
 }
