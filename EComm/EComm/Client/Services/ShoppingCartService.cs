@@ -10,6 +10,8 @@ namespace EComm.Client.Services
     {
         ShoppingCart Cart { get; }
 
+        event Action? OnChange;
+
         void AddToCart(Product product, int quantity);
     }
 
@@ -21,6 +23,8 @@ namespace EComm.Client.Services
         {
             _shoppingCart = new ShoppingCart();
         }
+
+        public event Action? OnChange;
 
         public ShoppingCart Cart => _shoppingCart;
 
@@ -34,6 +38,9 @@ namespace EComm.Client.Services
                 var li = new ShoppingCart.LineItem(product) { Quantity = quantity };
                 _shoppingCart.LineItems.Add(li);
             }
+            NotifyStateChanged();
         }
+
+        private void NotifyStateChanged() => OnChange?.Invoke();
     }
 }

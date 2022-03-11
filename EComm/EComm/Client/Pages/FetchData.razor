@@ -29,7 +29,7 @@ else {
                     <td>@product.FormattedPrice</td>
                     <td>@product.Package</td>
                     <td>@(product.Supplier?.CompanyName ?? "Unknown")</td>
-                    <td><button class="btn btn-primary" @onclick="@(() => AddToCart(product))">Add</button></td>
+                    <td><button class="btn btn-primary" @onclick="@(() => AddToCart(product))" @onclick:stopPropagation>Add</button></td>
                 </tr>
             }
         </tbody>

@@ -5,7 +5,18 @@
 
 @code {
 
-    int CartCount => CartService.Cart.LineItems.Count();
+    int CartCount => CartService.Cart.LineItems.Sum(li => li.Quantity);
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        CartService.OnChange += CartChanged;
+    }
+
+    void CartChanged()
+    {
+        StateHasChanged();
+    }
 
     void GoToCart()
     {
