@@ -4,18 +4,37 @@
 
 <p>Current count: <span class="@BackgroundColor">@currentCount</span></p>
 
+<p>
+    <input type="number" @bind="@increment" />
+</p>
+
 <button disabled="@(currentCount >= 10)" class="btn btn-primary" @onclick="IncrementCount">Go Up</button>
-<button disabled="@(currentCount == 0)" class="btn btn-primary" @onclick="@(() => currentCount--)">Go Down</button>
+<button disabled="@(currentCount <= 0)" class="btn btn-primary" @onclick="DecrementCount">Go Down</button>
 
 @code {
     private int currentCount = 0;
+    private int increment = 1;
 
     private void IncrementCount()
     {
-        currentCount++;
+        currentCount += increment;
+    }
+
+    private void DecrementCount()
+    {
+        currentCount -= increment;
     }
 
     private string BackgroundColor =>
-        (currentCount % 2 == 0) ? "yellow-background" : "red-background";
+    (currentCount % 2 == 0) ? "yellow-background" : "red-background";
 }
 
+@*
+    
+1. Add an input element that allows user to specify increment
+
+2. Modify buttons to use the current increment
+
+BONUS: Implement some kind of validation
+
+*@
