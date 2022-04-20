@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EComm.Infrastructure
 {
-    public class ECommDataContext : DbContext, IRepository
+    internal class ECommDataContext : DbContext, IRepository
     {
         private string _connStr;
 

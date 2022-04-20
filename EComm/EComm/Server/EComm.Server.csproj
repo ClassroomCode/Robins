@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\EComm.Abstractions\EComm.Abstractions.csproj" />
+    <ProjectReference Include="..\..\EComm.Infrastructure\EComm.Infrastructure.csproj" />
     <ProjectReference Include="..\Client\EComm.Client.csproj" />
     <ProjectReference Include="..\Shared\EComm.Shared.csproj" />
   </ItemGroup>
