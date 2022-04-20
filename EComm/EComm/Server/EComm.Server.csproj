@@ -16,5 +16,9 @@
     <ProjectReference Include="..\Shared\EComm.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Stuff\" />
+  </ItemGroup>
+
 
 </Project>

@@ -11,5 +11,7 @@ namespace EComm.Abstractions
     {
         Task<IEnumerable<Product>> GetAllProducts();
         Task<IEnumerable<Supplier>> GetAllSuppliers();
+
+        Task<Product?> GetProduct(int id);
     }
 }

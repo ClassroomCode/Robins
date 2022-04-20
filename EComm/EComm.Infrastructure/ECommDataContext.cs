@@ -26,6 +26,11 @@ namespace EComm.Infrastructure
             return await Products.ToArrayAsync();
         }
 
+        public async Task<Product?> GetProduct(int id)
+        {
+            return await Products.SingleOrDefaultAsync(p => p.Id == id);
+        }
+
         public async Task<IEnumerable<Supplier>> GetAllSuppliers()
         {
             return await Suppliers.ToArrayAsync();
@@ -34,7 +39,7 @@ namespace EComm.Infrastructure
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(_connStr);
+            optionsBuilder.UseSqlServer(_connStr).LogTo(Console.WriteLine);
         }
     }
 }
