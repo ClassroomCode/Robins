@@ -11,6 +11,13 @@ namespace EComm.Infrastructure
 {
     public class ECommDataContext : DbContext, IRepository
     {
+        private string _connStr;
+
+        public ECommDataContext(string connStr)
+        {
+            _connStr = connStr;
+        }
+
         public DbSet<Product> Products => Set<Product>();
         public DbSet<Supplier> Suppliers => Set<Supplier>();
 
@@ -19,9 +26,15 @@ namespace EComm.Infrastructure
             return await Products.ToArrayAsync();
         }
 
-        public Task<IEnumerable<Supplier>> GetAllSuppliers()
+        public async Task<IEnumerable<Supplier>> GetAllSuppliers()
         {
             return await Suppliers.ToArrayAsync();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseSqlServer(_connStr);
         }
     }
 }
