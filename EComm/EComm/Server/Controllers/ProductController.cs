@@ -1,4 +1,5 @@
 ﻿using EComm.Abstractions;
+using EComm.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,6 +18,14 @@ namespace EComm.Server.Controllers
         public ProductController(IRepository repository)
         {
             _repository = repository;
+        }
+
+        [HttpGet("")]
+        public async Task<IActionResult> GetAllProducts()
+        {
+            var products = await _repository.GetAllProducts();
+
+            return Ok(products);
         }
     }
 }
