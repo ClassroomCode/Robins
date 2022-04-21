@@ -15,7 +15,7 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Name</th>
+                <th @onclick="SortByName">Name</th>
                 <th>Price</th>
                 <th>Supplier</th>
             </tr>
@@ -47,8 +47,12 @@ else
             statusMesssage = "Problem getting products";
         }
     }
+
+    private void SortByName()
+    {
+        if (products != null) {
+            products = products.OrderBy(p => p.ProductName).ToArray();
+        }
+    }
 }
 
-@*
-    Implement column-based sorting
-*@

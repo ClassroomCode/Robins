@@ -34,6 +34,14 @@ namespace EComm.Infrastructure
             return await Products.SingleOrDefaultAsync(p => p.Id == id);
         }
 
+        public async Task<IEnumerable<Product>> GetAllProductRange(int start, bool includeSuppliers = false)
+        {
+            if (includeSuppliers) {
+                return await Products.Include(p => p.Supplier).Skip(start).Take(10).ToArrayAsync();
+            }
+            return await Products.Skip(start).Take(10).ToArrayAsync();
+        }
+
         public async Task<IEnumerable<Supplier>> GetAllSuppliers()
         {
             return await Suppliers.ToArrayAsync();

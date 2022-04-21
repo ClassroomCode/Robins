@@ -12,6 +12,8 @@ namespace EComm.Abstractions
         Task<IEnumerable<Product>> GetAllProducts(bool includeSuppliers = false);
         Task<IEnumerable<Supplier>> GetAllSuppliers();
 
+        Task<IEnumerable<Product>> GetAllProductRange(int start, bool includeSuppliers = false);
+
         Task<Product?> GetProduct(int id);
 
         Task Save();

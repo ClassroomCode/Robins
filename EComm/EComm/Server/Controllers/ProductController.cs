@@ -30,6 +30,15 @@ namespace EComm.Server.Controller
             return Ok(products);
         }
 
+        [HttpGet("range")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAllProductRange(int start)
+        {
+            var products = await _repository.GetAllProductRange(start, includeSuppliers: true);
+
+            return Ok(products);
+        }
+
         [HttpGet("{id}")]  
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
