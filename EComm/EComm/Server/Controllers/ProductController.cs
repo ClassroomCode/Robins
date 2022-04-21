@@ -40,9 +40,29 @@ namespace EComm.Server.Controller
             if (product == null) return NotFound();
             return Ok(product);
         }
+
+        [HttpPatch("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> PatchProduct(int id, Product product)
+        {
+            // perform some validation
+
+            var existingProduct = await _repository.GetProduct(id);
+            if (existingProduct == null) return NotFound();
+
+            if (product.UnitPrice.HasValue) {
+                existingProduct.UnitPrice = product.UnitPrice;
+            }
+            if (!string.IsNullOrWhiteSpace(product.ProductName)) {
+                existingProduct.ProductName = product.ProductName;
+            }
+
+            await _repository.Save();
+
+            return NoContent();
+        }
     }
 }
-
-
-
 

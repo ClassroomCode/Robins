@@ -36,6 +36,11 @@ namespace EComm.Infrastructure
             return await Suppliers.ToArrayAsync();
         }
 
+        public async Task Save()
+        {
+            await SaveChangesAsync();
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
