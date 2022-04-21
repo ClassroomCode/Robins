@@ -15,4 +15,9 @@ else {
     public string? Id { get; set; }
 
     private Product? CurrentProduct { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentProduct = await Http.GetFromJsonAsync<Product>($"api/product/{Id}");
+    }
 }

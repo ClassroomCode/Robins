@@ -1,6 +1,7 @@
 ﻿@page "/fetchdata"
 @using EComm.Shared
 @inject HttpClient Http
+@inject NavigationManager NavManager
 
 <h1>Products</h1>
 
@@ -22,12 +23,12 @@ else
         </thead>
         <tbody>
             @foreach (var product in products)
-            {
-                <tr>
-                    <td>@product.ProductName</td>
-                    <td>@product.FormattedPrice</td>
-                    <td>@product.Supplier?.CompanyName</td>
-                </tr>
+            {       
+            <tr @onclick="@(() => EditProduct(product.Id))">
+                <td>@product.ProductName</td>
+                <td>@product.FormattedPrice</td>
+                <td>@product.Supplier?.CompanyName</td>
+            </tr>
             }
         </tbody>
     </table>
@@ -53,6 +54,11 @@ else
         if (products != null) {
             products = products.OrderBy(p => p.ProductName).ToArray();
         }
+    }
+
+    private void EditProduct(int id)
+    {
+        NavManager.NavigateTo($"edit/{id}");
     }
 }
 
