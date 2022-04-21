@@ -52,11 +52,17 @@ else {
         <button class="btn btn-primary" type="submit">Save</button>
     </fieldset>
 </EditForm>
+<Alert @bind-Show="ShowAlert">
+    <span class="oi oi-check mr-2" aria-hidden="true"></span>
+    <strong>Product saved</strong>
+</Alert>
 }
 
 @code {
     [Parameter]
     public string? Id { get; set; }
+
+    private bool ShowAlert { get; set; }
 
     private Product? CurrentProduct { get; set; }
     private Supplier[]? Suppliers { get; set; }
@@ -70,5 +76,6 @@ else {
     private async Task SaveProduct()
     {
         await Http.PutAsJsonAsync($"api/product/{Id}", CurrentProduct);
+        ShowAlert = true;
     }
 }
