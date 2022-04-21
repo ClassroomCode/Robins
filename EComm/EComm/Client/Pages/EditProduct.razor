@@ -42,7 +42,7 @@ else {
             <InputSelect class="col-6" id="Supplier" @bind-Value="CurrentProduct.SupplierId">
                 @foreach (var supplier in Suppliers!) {
                     <option value="@supplier.Id">@supplier.CompanyName</option>
-                    }
+                }
             </InputSelect>
         </div>
         <div class="row mb-2">
@@ -59,10 +59,12 @@ else {
     public string? Id { get; set; }
 
     private Product? CurrentProduct { get; set; }
+    private Supplier[]? Suppliers { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         CurrentProduct = await Http.GetFromJsonAsync<Product>($"api/product/{Id}");
+        Suppliers = await Http.GetFromJsonAsync<Supplier[]>("api/supplier");
     }
 
     private async Task SaveProduct()
