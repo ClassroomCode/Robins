@@ -55,7 +55,7 @@ namespace EComm.Infrastructure
                 numAffected = await SaveChangesAsync();
                 return (numAffected > 0);
             }
-            catch (Exception ex) {
+            catch {
                 return false;
             }
         }
