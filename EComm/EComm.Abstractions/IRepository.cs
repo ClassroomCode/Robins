@@ -9,7 +9,7 @@ namespace EComm.Abstractions
 {
     public interface IRepository
     {
-        Task<IEnumerable<Product>> GetAllProducts();
+        Task<IEnumerable<Product>> GetAllProducts(bool includeSuppliers = false);
         Task<IEnumerable<Supplier>> GetAllSuppliers();
 
         Task<Product?> GetProduct(int id);

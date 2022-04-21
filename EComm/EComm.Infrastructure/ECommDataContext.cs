@@ -21,8 +21,11 @@ namespace EComm.Infrastructure
         public DbSet<Product> Products => Set<Product>();
         public DbSet<Supplier> Suppliers => Set<Supplier>();
 
-        public async Task<IEnumerable<Product>> GetAllProducts()
+        public async Task<IEnumerable<Product>> GetAllProducts(bool includeSuppliers = false)
         {
+            if (includeSuppliers) {
+                return await Products.Include(p => p.Supplier).ToArrayAsync();
+            }
             return await Products.ToArrayAsync();
         }
 

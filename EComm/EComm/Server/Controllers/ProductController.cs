@@ -25,7 +25,7 @@ namespace EComm.Server.Controller
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllProducts()
         {
-            var products = await _repository.GetAllProducts();
+            var products = await _repository.GetAllProducts(includeSuppliers: true);
 
             return Ok(products);
         }
