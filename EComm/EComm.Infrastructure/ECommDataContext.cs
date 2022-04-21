@@ -41,6 +41,25 @@ namespace EComm.Infrastructure
             await SaveChangesAsync();
         }
 
+        public async Task AddProduct(Product product)
+        {
+            await AddAsync(product);
+            await SaveChangesAsync();
+        }
+
+        public async Task<bool> RemoveProduct(Product product)
+        {
+            Remove(product);
+            int numAffected = 0;
+            try { 
+                numAffected = await SaveChangesAsync();
+                return (numAffected > 0);
+            }
+            catch (Exception ex) {
+                return false;
+            }
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);

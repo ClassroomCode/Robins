@@ -15,5 +15,8 @@ namespace EComm.Abstractions
         Task<Product?> GetProduct(int id);
 
         Task Save();
+
+        Task AddProduct(Product product);
+        Task<bool> RemoveProduct(Product product);
     }
 }

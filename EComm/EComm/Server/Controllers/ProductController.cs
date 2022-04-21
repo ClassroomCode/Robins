@@ -63,6 +63,56 @@ namespace EComm.Server.Controller
 
             return NoContent();
         }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ReplaceProduct(int id, Product product)
+        {
+            // perform some validation
+
+            var existingProduct = await _repository.GetProduct(id);
+            if (existingProduct == null) return NotFound();
+
+            existingProduct.ProductName = product.ProductName;
+            existingProduct.UnitPrice = product.UnitPrice;
+            existingProduct.SupplierId = product.SupplierId;
+            existingProduct.Package = product.Package;
+            existingProduct.IsDiscontinued = product.IsDiscontinued;   
+
+            await _repository.Save();
+
+            return NoContent();
+        }
+
+        [HttpPost("")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> AddProduct(Product product)
+        {
+            // perform some validation
+
+            await _repository.AddProduct(product);
+
+            return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            var existingProduct = await _repository.GetProduct(id);
+            if (existingProduct == null) return NotFound();
+
+            bool b = await _repository.RemoveProduct(existingProduct);
+
+            if (!b) return BadRequest(new { msg = "ref problem" });
+
+            return NoContent();
+        }
     }
 }
 
