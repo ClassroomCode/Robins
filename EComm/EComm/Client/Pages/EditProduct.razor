@@ -7,7 +7,51 @@
     <p><em>Loading...</em></p>
 }
 else {
-    <h2>@CurrentProduct.ProductName</h2>
+<EditForm Model="@CurrentProduct" OnValidSubmit="SaveProduct">
+    <DataAnnotationsValidator />
+    <fieldset>
+        <div class="row mb-2">
+            <label class="col-2" for="ProductName">Name:</label>
+            <InputText class="col-6" id="ProductName" @bind-Value="CurrentProduct.ProductName" />
+        </div>
+        <div class="row mb-2">
+            <div class="col-5 offset-2">
+                <ValidationMessage For="@(() => CurrentProduct.ProductName)" />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label class="col-2" for="UnitPrice">Unit Price:</label>
+            <InputNumber class="col-6" id="UnitPrice" @bind-Value="CurrentProduct.UnitPrice" />
+        </div>
+        <div class="row mb-2">
+            <div class="col-5 offset-2">
+                <ValidationMessage For="@(() => CurrentProduct.UnitPrice)" />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label class="col-2" for="Package">Package:</label>
+            <InputText class="col-6" id="Package" @bind-Value="CurrentProduct.Package" />
+        </div>
+        <div class="row mb-2">
+            <div class="col-5 offset-2">
+                <ValidationMessage For="@(() => CurrentProduct.Package)" />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label class="col-2" for="Package">Supplier:</label>
+            <InputSelect class="col-6" id="Supplier" @bind-Value="CurrentProduct.SupplierId">
+                @foreach (var supplier in Suppliers!) {
+                    <option value="@supplier.Id">@supplier.CompanyName</option>
+                    }
+            </InputSelect>
+        </div>
+        <div class="row mb-2">
+            <label class="col-2" for="IsDiscontinued">Inactive:</label>
+            <InputCheckbox class="col-6" id="Inactive" @bind-Value="CurrentProduct.IsDiscontinued" />
+        </div>
+        <button class="btn btn-primary" type="submit">Save</button>
+    </fieldset>
+</EditForm>
 }
 
 @code {
@@ -19,5 +63,10 @@ else {
     protected override async Task OnInitializedAsync()
     {
         CurrentProduct = await Http.GetFromJsonAsync<Product>($"api/product/{Id}");
+    }
+
+    private async Task SaveProduct()
+    {
+        await Http.PutAsJsonAsync($"api/product/{Id}", CurrentProduct);
     }
 }
