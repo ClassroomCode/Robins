@@ -24,7 +24,7 @@ else
         <tbody>
             @foreach (var product in products)
             {       
-            <tr @onclick="@(() => EditProduct(product.Id))">
+            <tr class="hover-row" @onclick="@(() => EditProduct(product.Id))">
                 <td>@product.ProductName</td>
                 <td>@product.FormattedPrice</td>
                 <td>@product.Supplier?.CompanyName</td>

@@ -32,6 +32,11 @@ a, .btn-link {
   color: black;
 }
 
+.hover-row:hover {
+  background: yellow;
+  cursor: pointer;
+}
+
 .invalid {
     outline: 1px solid red;
 }
