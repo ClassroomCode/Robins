@@ -1,5 +1,6 @@
 using EComm.Abstractions;
 using EComm.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,7 +8,9 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using System.Linq;
+using System.Text;
 
 namespace EComm.Server
 {
@@ -26,6 +29,17 @@ namespace EComm.Server
         {
             var connStr = Configuration.GetConnectionString("ConnStr");
             services.AddScoped<IRepository>(sp => RepositoryFactory.CreateRepository(connStr));
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => {
+                    options.TokenValidationParameters = new TokenValidationParameters {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                            .GetBytes(Configuration["key"])),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+            });
 
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -49,6 +63,9 @@ namespace EComm.Server
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapRazorPages();
